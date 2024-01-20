@@ -82,7 +82,9 @@ Generate a Kubernetes Secret from your AWS key-pair and then configure the Provi
 Generate an AWS key-pair file
 [default]
 aws_access_key_id = <>
+
 aws_secret_access_key = <>
+
 save the above as credentials.txt
 
 # Create a Kubernetes secret with the AWS credentials
@@ -90,24 +92,30 @@ save the above as credentials.txt
 kubectl create secret \
 generic aws-secret \
 -n crossplane-system \
---from-file=creds=./aws-credentials.txt
+--from-file=creds=./credentials.txt
+
 Verify: kubectl describe secret aws-secret -n crossplane-system
 
 # Create a managed resources (EFS)
 
 Create filesystem
+
 kubectl apply -f ./resources/aws-efs/filesystem.yaml
 
 Create Access Point
+
 kubectl apply -f ./resources/aws-efs/accesspoint.yaml
 
 Create file system policy
+
 kubectl apply -f ./resources/aws-efs/filesystem-policy.yaml
 
 Create Mount Target
+
 kubectl apply -f ./resources/aws-efs/mount-target.yaml
 
 Create replication configuration
+
 kubectl apply -f ./resources/aws-efs/replication-configuration.yaml
 
 
